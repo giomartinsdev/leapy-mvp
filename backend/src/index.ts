@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import rootRouter from "./routes/rootRouter"; 
 import getAssetRouter from "./routes/getAssetRouter"; 
 import addAssetRouter from "./routes/addAssetRouter"; 
@@ -7,6 +8,7 @@ import updAssetRouter from "./routes/updAssetRouter";
 
 const app = express();
 const port = 3000;
+app.use(cors())
 app.use(express.json());
 
 app.use("/", rootRouter);
