@@ -3,26 +3,22 @@ services:
     build: ./backend
     container_name: backend_c
     ports:
-      - '3000:3000'
+      - 3000:3000
     depends_on:
       - postgres
     networks:
       - app-network
 
-  # frontend:
-  #   build: ./frontend
-  #   container_name: frontend_c
-  #   ports:
-  #     - '4000:4000'
-  #   stdin_open: true
-  #   tty: true
-  #   depends_on:
-  #     - postgres
-  #   networks:
-  #     - app-network
-  #   volumes:
-  #     - ./frontend:/app
-  #     - /app/node_modules
+  frontend:
+    build: ./frontend
+    container_name: frontend_c
+    ports:
+      - 4001:4173
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
 
   postgres:
     image: postgres:latest
