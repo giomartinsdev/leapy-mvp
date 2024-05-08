@@ -1,8 +1,9 @@
 import express from "express";
+import rootRouter from "./routes/rootRouter"; 
 import getAssetRouter from "./routes/getAssetRouter"; 
 import addAssetRouter from "./routes/addAssetRouter"; 
 import delAssetRouter from "./routes/delAssetRouter";
-import rootRouter from "./routes/rootRouter"; 
+import updAssetRouter from "./routes/updAssetRouter";
 
 const app = express();
 const port = 3000;
@@ -12,8 +13,7 @@ app.use("/", rootRouter);
 app.use("/getAsset", getAssetRouter);
 app.use("/addAsset", addAssetRouter);
 app.use("/delAsset", delAssetRouter);
-
-
+app.use("/updAsset", updAssetRouter);
 
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);
