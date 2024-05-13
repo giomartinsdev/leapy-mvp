@@ -1,43 +1,36 @@
-import { useState } from 'react'
-import axios from 'axios'
+import React, { useState } from 'react';
+
+import RootRequest from './RootRequest';
+import GetAssetRequest from './GetAssetRequest';
+import CreateAssetRequest from './CreateAssetRequest';
+import UpdateAssetStatusRequest from './UpdateAssetStatusRequest';
+import DeleteAssetRequest from './DeleteAssetRequest';
 
 function App() {
-  const [id, setId] = useState('')
-  const [data, setData] = useState(null)
+  const [requestType, setRequestType] = useState('');
 
-  const testMessage = async () => {
-    try {
-      const response = await axios.get(`http://localhost:3000/`)
-      setData(response.data)
-    } catch (error) {
-      console.error('Erro ao buscar dados', error)
-    }
-  }
-    const getAsset = async () => {
-      try {
-        const response = await axios.post(`http://localhost:3000/getAsset`, {"id": id})
-      setData(response.data)
-    } catch (error) {
-      console.error('Erro ao buscar dados', error)
-    }
-  }
+  const requestComponents: { [key: string]: React.ReactNode } = {
+    root: <RootRequest />,
+    getAsset: <GetAssetRequest />,
+    createAsset: <CreateAssetRequest />,
+    updateAssetStatus: <UpdateAssetStatusRequest />,
+    deleteAsset: <DeleteAssetRequest />,
+  };
 
   return (
-    <div>
-      <input
-        type="text"
-        value={id}
-        onChange={(e) => setId(e.target.value)}
-        placeholder="Insira o ID"
-      />
-      <button onClick={testMessage}>root test</button>
-      <button onClick={getAsset}>Pegar dados do ativo</button>
-      <button onClick={() => {}}>Alterar estado do ativo</button>
-      <button onClick={() => {}}>Deletar ativo</button>
-      <button onClick={() => {}}>Criar ativo</button>
-      {data && <div>{JSON.stringify(data)}</div>}
+    <div className="App">
+      <select title='Dropbox requests' value={requestType} onChange={e => setRequestType(e.target.value)}>
+        <option value="">Select a request</option>
+        <option value="root">Root</option>
+        <option value="getAsset">Get Asset</option>
+        <option value="createAsset">Create Asset</option>
+        <option value="updateAssetStatus">Update Asset Status</option>
+        <option value="deleteAsset">Delete Asset</option>
+      </select>
+
+      {requestComponents[requestType]}
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

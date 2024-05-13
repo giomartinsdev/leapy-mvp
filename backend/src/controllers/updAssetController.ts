@@ -7,17 +7,19 @@ export const updAsset = async (req: Request, res: Response) => {
   if (!asset_code) {
     return res.status(400).json({ error: "Insira um asset_code" });
   }
-// column - value - asset_code to where
-  const query: string =
-    "UPDATE assets SET $2 = $3 WHERE asset_code = $4";
+
+  const validColumns = ["status_code", "asset_code", "description"]; 
+  if (!validColumns.includes(column)) {
+    return res.status(400).json({ error: "Nome da coluna inválido" });
+  }
+
+  const query: string = `UPDATE assets SET ${column} = $1 WHERE asset_code = $2`;
+
   try {
-    const result = await runQuery(query, [column, value, asset_code]);
+    const result = await runQuery(query, [value, asset_code]);
+    console.log(result)
 
-    if (!result) {
-      return res.status(404).json({ error: "Asset não encontrado" });
-    }
-
-    return res.json(`Asset ${asset_code} removido`);
+    return res.json({ message: `Asset ${asset_code} atualizado com sucesso.` });
   } catch (error) {
     console.error("Erro ao executar consulta:", error);
     return res.status(500).json({ error: "Erro ao executar consulta" });
