@@ -21,7 +21,7 @@ export const addAsset = async (req: Request, res: Response) => {
       return res.status(404).json({ error: "Ativo não encontrado" });
     }
 
-    return res.json(`Asset ${asset_code} created`);
+    return res.json(`Ativo ${asset_code} criado`);
   } catch (error) {
     console.error("Erro ao executar consulta:", error);
     return res.status(500).json({ error: "Erro ao executar consulta" });

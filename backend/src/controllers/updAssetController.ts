@@ -19,7 +19,7 @@ export const updAsset = async (req: Request, res: Response) => {
     const result = await runQuery(query, [value, asset_code]);
     console.log(result)
 
-    return res.json({ message: `Asset ${asset_code} atualizado com sucesso.` });
+    return res.json(`Ativo ${asset_code} atualizado com sucesso.`);
   } catch (error) {
     console.error("Erro ao executar consulta:", error);
     return res.status(500).json({ error: "Erro ao executar consulta" });
