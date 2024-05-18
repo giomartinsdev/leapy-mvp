@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import useInput from './useInput';
+import useInput from '../useInput';
 
 const CreateAssetRequest = () => {
   const asset_code = useInput('');
@@ -26,10 +26,10 @@ const CreateAssetRequest = () => {
 
   return (
     <div>
-      <input {...asset_code} placeholder="Asset Code" />
-      <input {...description} placeholder="Description" />
-      <input {...status_code} placeholder="Status code" />
-      <button onClick={handleCreateClient}>Create Client</button>
+      <input {...asset_code} placeholder="Codigo do ativo" />
+      <input {...description} placeholder="Descrição" />
+      <input {...status_code} placeholder="Codigo de status do ativo" />
+      <button onClick={handleCreateClient}>Criar novo ativo</button>
       <p>{responseText}</p>
     </div>
   );

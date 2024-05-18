@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import useInput from './useInput';
+import useInput from '../useInput';
 
 const UpdateClientRequest = () => {
   const newValue = useInput('');
@@ -25,8 +25,8 @@ const UpdateClientRequest = () => {
   return (
     <div>
       <input {...assetCode} placeholder="Codigo do ativo" />
-      <input {...newValue} placeholder="Novo status" />
-      <button onClick={handleUpdateClient}>Update Client</button>
+      <input {...newValue} placeholder="Novo codigo de status" />
+      <button onClick={handleUpdateClient}>Atualizar dados do ativo</button>
       <p>{responseText}</p> 
     </div>
   );

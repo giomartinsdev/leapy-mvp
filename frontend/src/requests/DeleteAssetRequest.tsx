@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
-import useInput from './useInput';
+import useInput from '../useInput';
 
-const GetAssetRequest = () => {
+const DeleteClientRequest = () => {
   const assetCode = useInput('');
   const [responseText, setResponseText] = useState(''); 
 
-  const handleGetAsset = async () => {
-    const response = await fetch(`http://localhost:3000/getAsset`, {
+  const handleDeleteClient = async () => {
+    const response = await fetch(`http://localhost:3000/delAsset`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        id: assetCode.value
-      })
+        asset_code: assetCode.value,
+      }),
     });
     const data = await response.text();
     setResponseText(data);
@@ -21,11 +21,11 @@ const GetAssetRequest = () => {
 
   return (
     <div>
-      <input {...assetCode} placeholder="assetId" />
-      <button onClick={handleGetAsset}>Get Client</button>
+      <input {...assetCode} placeholder="Codigo do ativo" />
+      <button onClick={handleDeleteClient}>Deletar ativo</button>
       <p>{responseText}</p>
     </div>
   );
 };
 
-export default GetAssetRequest;
+export default DeleteClientRequest;

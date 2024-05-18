@@ -1,34 +1,53 @@
 import React, { useState } from 'react';
-
-import RootRequest from './RootRequest';
-import GetAssetRequest from './GetAssetRequest';
-import CreateAssetRequest from './CreateAssetRequest';
-import UpdateAssetStatusRequest from './UpdateAssetStatusRequest';
-import DeleteAssetRequest from './DeleteAssetRequest';
+import './App.css';
+import RootRequest from './requests/RootRequest';
+import GetAssetRequest from './requests/GetAssetRequest';
+import CreateAssetRequest from './requests/CreateAssetRequest';
+import UpdateAssetStatusRequest from './requests/UpdateAssetStatusRequest';
+import DeleteAssetRequest from './requests/DeleteAssetRequest';
 
 function App() {
   const [requestType, setRequestType] = useState('');
 
-  const requestComponents: { [key: string]: React.ReactNode } = {
-    root: <RootRequest />,
-    getAsset: <GetAssetRequest />,
-    createAsset: <CreateAssetRequest />,
-    updateAssetStatus: <UpdateAssetStatusRequest />,
-    deleteAsset: <DeleteAssetRequest />,
+  const renderRequestComponent = () => {
+    switch (requestType) {
+      case 'root':
+        return <RootRequest />;
+      case 'getAsset':
+        return <GetAssetRequest />;
+      case 'createAsset':
+        return <CreateAssetRequest />;
+      case 'updateAssetStatus':
+        return <UpdateAssetStatusRequest />;
+      case 'deleteAsset':
+        return <DeleteAssetRequest />;
+      default:
+        return null;
+    }
   };
 
   return (
     <div className="App">
-      <select title='Dropbox requests' value={requestType} onChange={e => setRequestType(e.target.value)}>
-        <option value="">Select a request</option>
-        <option value="root">Root</option>
-        <option value="getAsset">Get Asset</option>
-        <option value="createAsset">Create Asset</option>
-        <option value="updateAssetStatus">Update Asset Status</option>
-        <option value="deleteAsset">Delete Asset</option>
-      </select>
+      <header className="App-header">
+        <h1>Gerenciamento de Ativos</h1>
+        <select 
+          className="request-select" 
+          title="Dropbox requests" 
+          value={requestType} 
+          onChange={e => setRequestType(e.target.value)}
+        >
+          <option value="">Selecione um tipo de ação</option>
+          <option value="root">Debug</option>
+          <option value="getAsset">Buscar dados do ativo</option>
+          <option value="createAsset">Criar novo ativo</option>
+          <option value="updateAssetStatus">Atualizar status do ativo</option>
+          <option value="deleteAsset">Deletar ativo</option>
+        </select>
+      </header>
 
-      {requestComponents[requestType]}
+      <main className="App-main">
+        {renderRequestComponent()}
+      </main>
     </div>
   );
 }
